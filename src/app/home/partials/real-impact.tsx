@@ -86,7 +86,7 @@ const RealImpactSection = () => {
       <h2 className='text-display-sm lg:text-display-2xl text-neutral-25 mb-4 font-bold'>
         Proven Numbers. Real Impact.
       </h2>
-      <p className='text-md mb-16 text-neutral-400 lg:text-xl'>
+      <p className='text-md mb-6 text-neutral-400 md:mb-16 lg:text-lg'>
         From shipped products to years of experience
       </p>
 
