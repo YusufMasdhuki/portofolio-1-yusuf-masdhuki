@@ -1,7 +1,7 @@
 'use client';
 import { motion } from 'motion/react';
 import Image from 'next/image';
-import React, { useRef, useState } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import { useInView } from 'react-intersection-observer';
 
 import { yearsOfBuilding } from '@/constants/years-of-building-data';
@@ -45,6 +45,7 @@ const Timeline: React.FC<TimelineProps> = ({ items }) => {
   const circleRefs = useRef<(HTMLDivElement | null)[]>([]);
 
   const handleVisible = (index: number) => {
+    if (index === 0) return;
     const circle = circleRefs.current[index];
     const container = containerRef.current;
 
@@ -105,7 +106,7 @@ const TimelineItem: React.FC<TimelineItemProps> = ({
   const isLeft = index % 2 === 0;
   const { ref, inView } = useInView({ threshold: 0.3, triggerOnce: true });
 
-  React.useEffect(() => {
+  useEffect(() => {
     if (inView) onVisible();
   }, [inView, onVisible]);
 
