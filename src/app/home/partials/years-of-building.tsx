@@ -1,7 +1,7 @@
 'use client';
 import { motion } from 'motion/react';
 import Image from 'next/image';
-import React, { useState } from 'react';
+import React, { useRef, useState } from 'react';
 import { useInView } from 'react-intersection-observer';
 
 import { yearsOfBuilding } from '@/constants/years-of-building-data';
@@ -40,22 +40,40 @@ interface TimelineProps {
 }
 
 const Timeline: React.FC<TimelineProps> = ({ items }) => {
-  const [visibleCount, setVisibleCount] = useState(0);
+  const [lineHeight, setLineHeight] = useState(0); // tinggi garis
+  const containerRef = useRef<HTMLDivElement>(null);
+  const circleRefs = useRef<(HTMLDivElement | null)[]>([]);
+
+  const handleVisible = (index: number) => {
+    const circle = circleRefs.current[index];
+    const container = containerRef.current;
+
+    if (circle && container) {
+      // hitung posisi bulatan relatif terhadap container
+      const circleRect = circle.getBoundingClientRect();
+      const containerRect = container.getBoundingClientRect();
+
+      const offset = circleRect.top - containerRect.top + circleRect.height / 2;
+
+      setLineHeight(Math.max(lineHeight, offset));
+    }
+  };
 
   return (
-    <div className='relative mx-auto w-full'>
-      {/* Garis tengah container */}
-      <div className='absolute top-10 left-1/2 h-full w-[2px] -translate-x-1/2'>
-        {/* layer dasar abu2 */}
-        <div className='absolute inset-0 bg-neutral-700 opacity-30' />
+    <div ref={containerRef} className='relative mx-auto w-full'>
+      {/* Garis tengah */}
+      <div className='absolute top-0 bottom-0 left-1/2 w-[2px] -translate-x-1/2'>
+        {/* layer dasar abu-abu */}
 
         {/* layer animasi primary → putih */}
-        <motion.div
-          initial={{ height: 0 }}
-          animate={{ height: `${(visibleCount / items.length) * 100}%` }}
-          transition={{ duration: 0.8, ease: 'easeInOut' }}
-          className='absolute top-0 left-0 w-full bg-white'
-        />
+        {lineHeight > 0 && (
+          <motion.div
+            initial={{ height: 0 }}
+            animate={{ height: lineHeight }}
+            transition={{ duration: 0.8, ease: 'easeInOut' }}
+            className='bg-primary-100 absolute top-0 left-0 z-10 w-full'
+          />
+        )}
       </div>
 
       {items.map((item, index) => (
@@ -63,7 +81,8 @@ const Timeline: React.FC<TimelineProps> = ({ items }) => {
           key={index}
           item={item}
           index={index}
-          onVisible={() => setVisibleCount((prev) => Math.max(prev, index + 1))}
+          circleRef={(el) => (circleRefs.current[index] = el)}
+          onVisible={() => handleVisible(index)}
         />
       ))}
     </div>
@@ -74,18 +93,17 @@ interface TimelineItemProps {
   item: YearsOfBuildingType;
   index: number;
   onVisible: () => void;
+  circleRef: (el: HTMLDivElement | null) => void;
 }
 
 const TimelineItem: React.FC<TimelineItemProps> = ({
   item,
   index,
   onVisible,
+  circleRef,
 }) => {
   const isLeft = index % 2 === 0;
-  const { ref, inView } = useInView({
-    threshold: 0.3,
-    triggerOnce: true,
-  });
+  const { ref, inView } = useInView({ threshold: 0.3, triggerOnce: true });
 
   React.useEffect(() => {
     if (inView) onVisible();
@@ -100,12 +118,13 @@ const TimelineItem: React.FC<TimelineItemProps> = ({
     >
       {/* Bulatan */}
       <motion.div
+        ref={circleRef}
         initial={{ scale: 0, backgroundColor: '#3b82f6' }}
-        animate={inView ? { scale: 1, backgroundColor: '#ffffff' } : {}}
+        animate={inView ? { scale: 1, backgroundColor: '#9839a2' } : {}}
         transition={{ duration: 0.6 }}
-        className='absolute top-2 left-1/2 z-10 flex size-12 -translate-x-1/2 transform items-center justify-center rounded-full'
+        className='absolute top-0 left-1/2 z-10 flex size-12 -translate-x-1/2 transform items-center justify-center rounded-full'
       >
-        <div className='size-8 rounded-full bg-white shadow' />
+        <div className='bg-primary-100 size-8 rounded-full shadow' />
       </motion.div>
 
       {/* Konten */}
@@ -130,7 +149,7 @@ const TimelineItem: React.FC<TimelineItemProps> = ({
             />
           </div>
 
-          <ul className='mt-3 list-disc space-y-2 text-left text-neutral-400'>
+          <ul className='mt-3 space-y-2 text-left text-neutral-400'>
             {item.Description.map((desc, i) => (
               <li key={i}>{desc}</li>
             ))}
