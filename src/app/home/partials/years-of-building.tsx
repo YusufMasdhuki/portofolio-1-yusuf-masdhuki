@@ -40,43 +40,18 @@ interface TimelineProps {
 }
 
 const Timeline: React.FC<TimelineProps> = ({ items }) => {
-  const [lineHeight, setLineHeight] = useState(0); // tinggi garis
   const containerRef = useRef<HTMLDivElement>(null);
   const circleRefs = useRef<(HTMLDivElement | null)[]>([]);
+  const [activeIndexes, setActiveIndexes] = useState<number[]>([]);
 
   const handleVisible = (index: number) => {
-    if (index === 0) return;
-    const circle = circleRefs.current[index];
-    const container = containerRef.current;
-
-    if (circle && container) {
-      // hitung posisi bulatan relatif terhadap container
-      const circleRect = circle.getBoundingClientRect();
-      const containerRect = container.getBoundingClientRect();
-
-      const offset = circleRect.top - containerRect.top + circleRect.height / 2;
-
-      setLineHeight(Math.max(lineHeight, offset));
+    if (!activeIndexes.includes(index)) {
+      setActiveIndexes((prev) => [...prev, index]);
     }
   };
 
   return (
     <div ref={containerRef} className='relative mx-auto w-full'>
-      {/* Garis tengah */}
-      <div className='absolute top-0 bottom-0 left-1/2 w-[2px] -translate-x-1/2'>
-        {/* layer dasar abu-abu */}
-
-        {/* layer animasi primary → putih */}
-        {lineHeight > 0 && (
-          <motion.div
-            initial={{ height: 0 }}
-            animate={{ height: lineHeight }}
-            transition={{ duration: 0.8, ease: 'easeInOut' }}
-            className='bg-primary-100 absolute top-0 left-0 z-10 w-full'
-          />
-        )}
-      </div>
-
       {items.map((item, index) => (
         <TimelineItem
           key={index}
@@ -84,8 +59,43 @@ const Timeline: React.FC<TimelineProps> = ({ items }) => {
           index={index}
           circleRef={(el) => (circleRefs.current[index] = el)}
           onVisible={() => handleVisible(index)}
+          isActive={activeIndexes.includes(index)}
         />
       ))}
+
+      {/* Garis animasi segmented */}
+      {activeIndexes.map((index) => {
+        if (index === 0) return null;
+        const prevCircle = circleRefs.current[index - 1];
+        const thisCircle = circleRefs.current[index];
+
+        if (!prevCircle || !thisCircle) return null;
+
+        const prevRect = prevCircle.getBoundingClientRect();
+        const thisRect = thisCircle.getBoundingClientRect();
+        const top =
+          prevRect.top +
+          prevRect.height / 2 -
+          containerRef.current!.getBoundingClientRect().top;
+        const bottom =
+          thisRect.top +
+          thisRect.height / 2 -
+          containerRef.current!.getBoundingClientRect().top;
+
+        return (
+          <motion.div
+            key={index}
+            initial={{ height: 0, backgroundColor: '#ff8ceb' }} // primary
+            animate={{ height: bottom - top, backgroundColor: '#171717' }} // neutral
+            transition={{
+              height: { duration: 0.8, ease: 'easeInOut' },
+              backgroundColor: { delay: 0.8, duration: 0.4 },
+            }}
+            className='absolute left-1/2 z-1 w-[1px] -translate-x-1/2'
+            style={{ top }}
+          />
+        );
+      })}
     </div>
   );
 };
@@ -95,6 +105,7 @@ interface TimelineItemProps {
   index: number;
   onVisible: () => void;
   circleRef: (el: HTMLDivElement | null) => void;
+  isActive: boolean;
 }
 
 const TimelineItem: React.FC<TimelineItemProps> = ({
@@ -133,9 +144,7 @@ const TimelineItem: React.FC<TimelineItemProps> = ({
         initial={{ opacity: 0, x: isLeft ? -50 : 50 }}
         animate={inView ? { opacity: 1, x: 0 } : {}}
         transition={{ duration: 0.6, delay: 0.4 }}
-        className={`w-1/2 px-6 ${
-          isLeft ? 'pr-12 text-right' : 'pl-12 text-left'
-        }`}
+        className={`w-1/2 ${isLeft ? 'pr-12 text-right' : 'pl-12 text-left'}`}
       >
         <div className='border-primary-900 relative rounded-lg border bg-neutral-900 p-6 shadow-lg'>
           <div className='flex items-center justify-between'>
