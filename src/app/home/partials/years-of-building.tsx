@@ -85,13 +85,13 @@ const Timeline: React.FC<TimelineProps> = ({ items }) => {
         return (
           <motion.div
             key={index}
-            initial={{ height: 0, backgroundColor: '#ff8ceb' }} // primary
-            animate={{ height: bottom - top, backgroundColor: '#171717' }} // neutral
+            initial={{ height: 0, backgroundColor: '#ff8ceb' }}
+            animate={{ height: bottom - top, backgroundColor: '#171717' }}
             transition={{
               height: { duration: 0.8, ease: 'easeInOut' },
               backgroundColor: { delay: 0.8, duration: 0.4 },
             }}
-            className='absolute left-1/2 z-1 w-[1px] -translate-x-1/2'
+            className='absolute left-6 z-0 w-[1px] translate-x-0 bg-neutral-900 lg:left-1/2 lg:-translate-x-1/2'
             style={{ top }}
           />
         );
@@ -114,7 +114,7 @@ const TimelineItem: React.FC<TimelineItemProps> = ({
   onVisible,
   circleRef,
 }) => {
-  const isLeft = index % 2 === 0;
+  const isLeft = index % 2 !== 0;
   const { ref, inView } = useInView({ threshold: 0.3, triggerOnce: true });
 
   useEffect(() => {
@@ -125,7 +125,7 @@ const TimelineItem: React.FC<TimelineItemProps> = ({
     <div
       ref={ref}
       className={`relative mb-16 flex w-full ${
-        isLeft ? 'justify-start' : 'justify-end'
+        isLeft ? 'lg:justify-start' : 'lg:justify-end'
       }`}
     >
       {/* Bulatan */}
@@ -134,20 +134,20 @@ const TimelineItem: React.FC<TimelineItemProps> = ({
         initial={{ scale: 0, backgroundColor: '#3b82f6' }}
         animate={inView ? { scale: 1, backgroundColor: '#9839a2' } : {}}
         transition={{ duration: 0.6 }}
-        className='absolute top-0 left-1/2 z-10 flex size-12 -translate-x-1/2 transform items-center justify-center rounded-full'
+        className={`absolute top-0 left-0 z-10 flex size-12 translate-x-0 items-center justify-center rounded-full lg:left-1/2 lg:-translate-x-1/2`}
       >
         <div className='bg-primary-100 size-8 rounded-full shadow' />
       </motion.div>
 
       {/* Konten */}
       <motion.div
-        initial={{ opacity: 0, x: isLeft ? -50 : 50 }}
-        animate={inView ? { opacity: 1, x: 0 } : {}}
+        initial={{ opacity: 0, y: 50 }}
+        animate={inView ? { opacity: 1, y: 0 } : {}}
         transition={{ duration: 0.6, delay: 0.4 }}
-        className={`w-1/2 ${isLeft ? 'pr-12 text-right' : 'pl-12 text-left'}`}
+        className={`w-full pl-16 lg:w-1/2 lg:pl-0 ${isLeft ? 'lg:pr-12' : 'lg:pl-12'} `}
       >
-        <div className='border-primary-900 relative rounded-lg border bg-neutral-900 p-6 shadow-lg'>
-          <div className='flex items-center justify-between'>
+        <div className='relative rounded-lg border border-neutral-900 p-6 shadow-lg'>
+          <div className='flex flex-col'>
             <h2 className='text-neutral-25 text-lg font-semibold'>
               {item.years}
             </h2>
@@ -156,12 +156,23 @@ const TimelineItem: React.FC<TimelineItemProps> = ({
               alt={`${item.years}-logo`}
               width={128}
               height={48}
+              className='h-8 w-21.5 md:h-12 md:w-32'
             />
           </div>
 
+          <div className='my-4 h-[1px] w-full bg-neutral-900' />
+
           <ul className='mt-3 space-y-2 text-left text-neutral-400'>
             {item.Description.map((desc, i) => (
-              <li key={i}>{desc}</li>
+              <li key={i} className='flex items-center gap-2'>
+                <Image
+                  src='/icons/logo-purple.svg'
+                  alt='logo purple'
+                  width={30}
+                  height={30}
+                />
+                {desc}
+              </li>
             ))}
           </ul>
         </div>
