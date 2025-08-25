@@ -4,7 +4,7 @@ import React from 'react';
 
 const Hero = () => {
   return (
-    <section className='relative h-[852px] w-full md:h-[945px]'>
+    <section id='home' className='relative h-[852px] w-full md:h-[945px]'>
       <Image
         src='/images/background-hero.png'
         alt='hero background gradient'

@@ -35,9 +35,12 @@ const Navbar = () => {
       style={{ background, backdropFilter: backdropBlur }}
       className='fixed top-0 z-50 w-full'
     >
-      <div className='custom-container flex-between h-16 md:h-21'>
+      <div className='custom-container flex-between h-16 md:h-20'>
         {/* logo */}
-        <div className='flex-center gap-2'>
+        <Link
+          href='#home'
+          className='flex-center cursor-pointer gap-2 transition-all duration-300 ease-out hover:opacity-80'
+        >
           <Image
             src='/icons/logo.svg'
             alt='logo'
@@ -46,7 +49,7 @@ const Navbar = () => {
             className='size-6 md:size-[43px]'
           />
           <p className='text-xl font-bold text-white'>Yusuf Masdhuki</p>
-        </div>
+        </Link>
 
         {/* navlink */}
         <nav className='hidden md:block'>
@@ -65,7 +68,10 @@ const Navbar = () => {
         </nav>
 
         {/* button */}
-        <Button className='hidden md:flex' asChild>
+        <Button
+          className='md:text-md hidden text-sm font-semibold text-black md:flex'
+          asChild
+        >
           <Link href='#contact'>Get in Touch</Link>
         </Button>
 
@@ -104,7 +110,10 @@ const Navbar = () => {
             </nav>
 
             <SheetClose asChild>
-              <Button className='mt-4 w-full' asChild>
+              <Button
+                className='md:text-md mt-4 w-full text-sm font-semibold text-black'
+                asChild
+              >
                 <Link href='#contact'>Get in Touch</Link>
               </Button>
             </SheetClose>

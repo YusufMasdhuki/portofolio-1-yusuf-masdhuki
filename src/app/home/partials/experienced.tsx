@@ -23,7 +23,8 @@ const ExperiencedSection = () => {
       variants={fadeInUp}
       initial='hidden'
       animate={inView ? 'visible' : 'hidden'}
-      className='custom-container py-10 lg:py-20'
+      id='skill'
+      className='custom-container overflow-x-hidden py-10 lg:py-20'
     >
       <div className='text-center'>
         <h2 className='text-display-sm lg:text-display-2xl text-neutral-25 mb-4 font-bold'>
@@ -58,7 +59,9 @@ const ExperiencedSection = () => {
                 </p>
                 <p className='text-md'>— Donald Knuth</p>
               </div>
-              <Button>Let’s Build Something</Button>
+              <Button className='md:text-md text-sm font-semibold text-black'>
+                Let’s Build Something
+              </Button>
             </div>
           </div>
         </motion.div>

@@ -11,34 +11,33 @@ import {
   slideInLeft,
   slideInRight,
 } from '@/lib/motion-variants';
-import { useMediaQuery } from '@/lib/use-media-query';
 
 const ChooseWiselySection = () => {
-  const [ref, inView] = useInView({ threshold: 0.5, triggerOnce: true });
-  const isDesktop = useMediaQuery('(min-width: 768px)');
+  const [ref, inView] = useInView({ threshold: 0.3, triggerOnce: true });
 
   return (
     <motion.section
       ref={ref}
-      variants={fadeInUp}
       initial='hidden'
       animate={inView ? 'visible' : 'hidden'}
-      className='custom-container w-full py-10 lg:py-20'
+      variants={fadeInUp}
+      className='custom-container w-full overflow-x-hidden py-10 lg:py-20'
     >
       <div className='text-center'>
         <h2 className='text-display-sm lg:text-display-2xl text-neutral-25 mb-4 font-bold'>
           Choose Wisely, Get Quality Results
         </h2>
-        <p className='text-md mb-6 text-neutral-400 md:mb-16 lg:text-lg'>
+        <p className='text-md mb-6 text-neutral-400 lg:mb-16 lg:text-lg'>
           Make the right choice for interfaces that are fast, reliable, and
           visually sharp.
         </p>
       </div>
-      <div className='flex w-full flex-1 flex-col gap-6 md:flex-row'>
+      {/* content */}
+      <div className='flex w-full flex-col gap-6 md:flex-row md:items-stretch'>
         {/* left */}
         <motion.div
-          variants={isDesktop ? slideInLeft : fadeInUp}
-          className='relative min-h-[520px] w-full flex-1 overflow-hidden rounded-2xl border border-neutral-900 md:basis-1/2'
+          variants={slideInLeft}
+          className='relative h-full min-h-[540px] w-full flex-1 overflow-hidden rounded-2xl border border-neutral-900 md:basis-1/2'
         >
           <Image
             src='/images/background-image.png'
@@ -55,7 +54,7 @@ const ChooseWiselySection = () => {
                 <motion.div
                   variants={scaleUp}
                   key={index}
-                  className='md:text-md text-neutral-25 flex h-14 items-center gap-2 rounded-xl bg-white/10 p-4 text-sm backdrop-blur'
+                  className='md:text-md text-neutral-25 flex h-14 items-center gap-2 rounded-xl bg-black/10 p-4 text-sm backdrop-blur'
                 >
                   <Image
                     src='/icons/logo.svg'
@@ -72,8 +71,8 @@ const ChooseWiselySection = () => {
 
         {/* right */}
         <motion.div
-          variants={isDesktop ? slideInRight : fadeInUp}
-          className='w-full flex-1 rounded-2xl border border-neutral-900 p-4 md:basis-1/2 md:p-6'
+          variants={slideInRight}
+          className='relative top-0 h-full w-full flex-1 rounded-2xl border border-neutral-800 p-4 md:basis-1/2 md:p-6'
         >
           <h3 className='md:text-display-xs text-neutral-25 mb-3 text-lg font-semibold md:mb-4'>
             Other

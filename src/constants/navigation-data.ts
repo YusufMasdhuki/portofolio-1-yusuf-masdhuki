@@ -5,10 +5,6 @@ interface NavigationData {
 
 export const navigationData: NavigationData[] = [
   {
-    label: 'Home',
-    href: '#home',
-  },
-  {
     label: 'About',
     href: '#about',
   },
@@ -19,6 +15,10 @@ export const navigationData: NavigationData[] = [
   {
     label: 'Projects',
     href: '#projects',
+  },
+  {
+    label: 'Testimonials',
+    href: '#testimonials',
   },
   {
     label: 'FAQ',

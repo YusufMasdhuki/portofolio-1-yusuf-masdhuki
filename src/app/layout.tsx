@@ -1,7 +1,9 @@
 import clsx from 'clsx';
 import type { Metadata } from 'next';
 import { Raleway } from 'next/font/google';
+
 import './globals.css';
+import { Toaster } from '@/components/ui/sonner';
 
 const raleway = Raleway({
   variable: '--font-raleway',
@@ -22,7 +24,10 @@ export default function RootLayout({
 }>) {
   return (
     <html lang='en'>
-      <body className={clsx(raleway.variable, 'antialiased')}>{children}</body>
+      <body className={clsx(raleway.variable, 'antialiased')}>
+        {children}
+        <Toaster />
+      </body>
     </html>
   );
 }

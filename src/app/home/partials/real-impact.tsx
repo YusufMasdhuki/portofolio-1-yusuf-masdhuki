@@ -81,6 +81,7 @@ const RealImpactSection = () => {
       variants={sectionVariants}
       initial='hidden'
       animate={inview ? 'visible' : 'hidden'}
+      id='about'
       className='custom-container py-10 lg:py-20'
     >
       <h2 className='text-display-sm lg:text-display-2xl text-neutral-25 mb-4 font-bold'>
