@@ -9,7 +9,7 @@ import { Button } from '@/components/ui/button';
 import ErrorDialog from '@/components/ui/error-dialog';
 import SuccessDialog from '@/components/ui/success-dialog';
 
-import { fadeInUp } from '@/lib/motion-variants';
+import { fadeInUp, slideInLeft, slideInRight } from '@/lib/motion-variants';
 
 const ContactUsSection = () => {
   const [ref, inView] = useInView({ threshold: 0.5, triggerOnce: true });
@@ -74,7 +74,7 @@ const ContactUsSection = () => {
       className='custom-container overflow-hidden rounded-2xl py-10 lg:py-20'
     >
       <div className='flex w-full flex-col flex-wrap overflow-hidden rounded-2xl md:flex-row'>
-        <div className='w-full flex-5 basis-80'>
+        <motion.div variants={slideInLeft} className='w-full flex-5 basis-80'>
           <Image
             src='/images/contact-us-profile.png'
             alt='contact us profile'
@@ -82,8 +82,11 @@ const ContactUsSection = () => {
             height={642}
             className='h-full w-full object-cover'
           />
-        </div>
-        <div className='flex w-full flex-5 basis-80 flex-col justify-between bg-black px-4 py-6 md:px-5 md:py-8'>
+        </motion.div>
+        <motion.div
+          variants={slideInRight}
+          className='flex w-full flex-5 basis-80 flex-col justify-between bg-black px-4 py-6 md:px-5 md:py-8'
+        >
           <h2 className='text-display-sm md:text-display-2xl font-bold text-white'>
             Start a Conversation
           </h2>
@@ -98,7 +101,7 @@ const ContactUsSection = () => {
             onOpenChange={setErrorOpen}
             onRetry={() => formRef.current?.requestSubmit()}
           />
-        </div>
+        </motion.div>
       </div>
     </motion.section>
   );

@@ -10,7 +10,7 @@ import {
 } from '@/components/ui/accordion';
 
 import { faqData } from '@/constants/faq-data';
-import { fadeInUp } from '@/lib/motion-variants';
+import { fadeInUp, scaleUp } from '@/lib/motion-variants';
 
 const FaqSection = () => {
   const [ref, inView] = useInView({ threshold: 0.5, triggerOnce: true });
@@ -45,16 +45,18 @@ const FaqView = () => {
     <div className='w-full'>
       <Accordion type='single' collapsible>
         {faqData.map((item) => (
-          <AccordionItem key={item.id} value={item.id}>
-            <AccordionTrigger className='hover:text-primary-100 text-neutral-25 cursor-pointer hover:no-underline'>
-              <span className='md:text-display-sm text-lg font-semibold'>
-                {item.question}
-              </span>
-            </AccordionTrigger>
-            <AccordionContent className='md:text-md pl-10 text-sm text-neutral-400'>
-              {item.answer}
-            </AccordionContent>
-          </AccordionItem>
+          <motion.div variants={scaleUp} key={item.id}>
+            <AccordionItem value={item.id}>
+              <AccordionTrigger className='hover:text-primary-100 text-neutral-25 cursor-pointer hover:no-underline'>
+                <span className='md:text-display-sm text-lg font-semibold'>
+                  {item.question}
+                </span>
+              </AccordionTrigger>
+              <AccordionContent className='md:text-md pl-10 text-sm text-neutral-400'>
+                {item.answer}
+              </AccordionContent>
+            </AccordionItem>
+          </motion.div>
         ))}
       </Accordion>
     </div>
