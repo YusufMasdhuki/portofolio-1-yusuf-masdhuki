@@ -1,25 +1,35 @@
 interface ExperiencedItemType {
   image: string;
   label: string;
+  width: number;
+  height: number;
 }
 
 export const experiencedData: ExperiencedItemType[] = [
-  { image: '/icons/html-icon.svg', label: 'HTML' },
-  { image: '/icons/css-icon.svg', label: 'CSS' },
+  { image: '/icons/html-icon.svg', label: 'HTML', width: 90, height: 90 },
+  { image: '/icons/css-icon.svg', label: 'CSS', width: 90, height: 90 },
   {
     image: '/icons/javascript-icon.svg',
     label: 'Javascript',
+    width: 90,
+    height: 90,
   },
   {
     image: '/icons/typescript-icon.svg',
     label: 'Typescript',
+    width: 90,
+    height: 90,
   },
   {
-    image: '/icons/sequalize-icon.svg',
-    label: 'Sequalize',
+    image: '/icons/react-js.svg',
+    label: 'React JS',
+    width: 70,
+    height: 70,
   },
   {
-    image: '/icons/mongo-db-icon.svg',
-    label: 'Mongo DB',
+    image: '/icons/next-js.svg',
+    label: 'Next JS',
+    width: 70,
+    height: 70,
   },
 ];

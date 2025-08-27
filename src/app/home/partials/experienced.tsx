@@ -1,6 +1,7 @@
 'use client';
 import { motion } from 'motion/react';
 import Image from 'next/image';
+import Link from 'next/link';
 import React from 'react';
 import { useInView } from 'react-intersection-observer';
 
@@ -60,7 +61,9 @@ const ExperiencedSection = () => {
                 <p className='text-md'>— Donald Knuth</p>
               </div>
               <Button className='md:text-md text-sm font-semibold text-black'>
-                Let’s Build Something
+                <Link href='#contact' className='w-full'>
+                  Let’s Build Something
+                </Link>
               </Button>
             </div>
           </div>
@@ -84,9 +87,9 @@ const ExperiencedList = () => {
           <Image
             src={item.image}
             alt={item.label}
-            width={90}
-            height={90}
-            className='size-22.5'
+            width={item.width}
+            height={item.height}
+            className='h-22.5'
           />
           <p className='text-md text-neutral-25 font-medium lg:text-lg'>
             {item.label}

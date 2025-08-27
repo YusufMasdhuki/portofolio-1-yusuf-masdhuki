@@ -9,7 +9,7 @@ import { portofolioData } from '@/constants/portofolio-data';
 import { fadeInUp, scaleUp } from '@/lib/motion-variants';
 
 const FrontendInAction = () => {
-  const [ref, inView] = useInView({ threshold: 0.5, triggerOnce: true });
+  const [ref, inView] = useInView({ threshold: 0.3, triggerOnce: true });
 
   return (
     <motion.section

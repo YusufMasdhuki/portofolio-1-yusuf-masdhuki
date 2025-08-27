@@ -1,6 +1,9 @@
 import { ArrowDown } from 'lucide-react';
 import Image from 'next/image';
+import Link from 'next/link';
 import React from 'react';
+
+import { socialLinks } from '@/constants/social-links';
 
 const Hero = () => {
   return (
@@ -42,6 +45,7 @@ const Hero = () => {
           />
         </div>
       </div>
+
       <div className='custom-container absolute top-[467px] z-5 mx-auto flex h-[497px] w-full flex-col gap-3 md:top-155 lg:top-67 lg:left-1/2 lg:-translate-x-1/2 lg:flex-row lg:items-center lg:justify-between lg:gap-20'>
         {/* Name */}
         <div className='text-display-xl z-5 w-[313px] font-bold text-white md:w-full lg:relative lg:left-10 lg:w-[408px] lg:text-6xl lg:leading-18 xl:text-[80px] xl:leading-[92px]'>
@@ -57,42 +61,30 @@ const Hero = () => {
             Passionate about frontend development, I focus on crafting digital
             products.
           </p>
+
+          {/* Social Links */}
           <div className='flex items-center gap-3'>
-            <span className='flex size-12 items-center justify-center rounded-full bg-black/60 backdrop-blur-2xl'>
-              <Image
-                src='/icons/fb-icon.svg'
-                alt='fb icon'
-                width={13}
-                height={24}
-              />
-            </span>
-            <span className='flex size-12 items-center justify-center rounded-full bg-black/60 backdrop-blur-2xl'>
-              <Image
-                src='/icons/ig-icon.svg'
-                alt='ig icon'
-                width={24}
-                height={24}
-              />
-            </span>
-            <span className='flex size-12 items-center justify-center rounded-full bg-black/60 backdrop-blur-2xl'>
-              <Image
-                src='/icons/linkedIn-icon.svg'
-                alt='linkedIn icon'
-                width={20}
-                height={20}
-              />
-            </span>
-            <span className='flex size-12 items-center justify-center rounded-full bg-black/60 backdrop-blur-2xl'>
-              <Image
-                src='/icons/tiktok-icon.svg'
-                alt='tiktok icon'
-                width={21}
-                height={24}
-              />
-            </span>
+            {socialLinks.map(({ href, icon, alt, width, height }) => (
+              <Link
+                key={alt}
+                href={href}
+                target='_blank'
+                rel='noopener noreferrer'
+                className='flex size-10 items-center justify-center rounded-full border border-white/20 bg-transparent transition-all duration-300 ease-out hover:bg-neutral-900 md:size-12 md:border-none md:bg-black/60 md:backdrop-blur-2xl'
+              >
+                <Image
+                  src={icon}
+                  alt={alt}
+                  width={width}
+                  height={height}
+                  className='h-4.5 md:h-5'
+                />
+              </Link>
+            ))}
           </div>
         </div>
       </div>
+
       <div className='absolute bottom-0 left-1/2 z-10 flex h-15 w-18.5 -translate-x-1/2 items-center justify-center rounded-t-full border border-white/20 md:h-26 md:w-26'>
         <ArrowDown className='size-9 text-white/20' />
       </div>

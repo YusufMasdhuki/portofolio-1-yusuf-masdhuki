@@ -91,19 +91,21 @@ const Navbar = () => {
                   height={43}
                   className='size-6 md:size-[43px]'
                 />
-                <p className='text-xl font-bold text-white'>Edwin</p>
+                <p className='text-xl font-bold text-white'>Yusuf Masdhuki</p>
               </div>
             </SheetTitle>
             <nav className='mt-4'>
               <ul className='flex flex-col gap-3 pl-2'>
                 {navigationData.map((data) => (
                   <li key={data.label} className='mb-2'>
-                    <Link
-                      href={data.href}
-                      className='hover:text-primary-200 text-md font-medium text-white hover:font-semibold'
-                    >
-                      {data.label}
-                    </Link>
+                    <SheetClose asChild>
+                      <Link
+                        href={data.href}
+                        className='hover:text-primary-200 text-md font-medium text-white hover:font-semibold'
+                      >
+                        {data.label}
+                      </Link>
+                    </SheetClose>
                   </li>
                 ))}
               </ul>
