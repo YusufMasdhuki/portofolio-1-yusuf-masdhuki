@@ -2,7 +2,7 @@
 import { zodResolver } from '@hookform/resolvers/zod';
 import { motion } from 'motion/react';
 import Image from 'next/image';
-import { FormEvent, forwardRef, useState } from 'react';
+import { forwardRef, useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { useInView } from 'react-intersection-observer';
 import { toast } from 'sonner';
@@ -12,6 +12,7 @@ import ErrorDialog from '@/components/ui/error-dialog';
 import FormInput from '@/components/ui/form-input';
 import SuccessDialog from '@/components/ui/success-dialog';
 
+import { ContactFormProps } from '@/interfaces/contact-form';
 import { fadeInUp, slideInLeft, slideInRight } from '@/lib/motion-variants';
 import { ContactSchema, contactSchema } from '@/schemas/contact-schema';
 
@@ -106,13 +107,6 @@ const ContactUsSection = () => {
 };
 
 export default ContactUsSection;
-
-type ContactFormProps = {
-  register: ReturnType<typeof useForm<ContactSchema>>['register'];
-  errors: Record<string, any>;
-  loading: boolean;
-  onSubmit: (e: FormEvent<HTMLFormElement>) => void;
-};
 
 const ContactForm = forwardRef<HTMLFormElement, ContactFormProps>(
   function ContactForm({ register, errors, loading, onSubmit }, ref) {
