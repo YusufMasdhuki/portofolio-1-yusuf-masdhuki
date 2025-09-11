@@ -10,7 +10,7 @@ import { testimonials } from '@/constants/testimonial-data';
 import { fadeInUp } from '@/lib/motion-variants';
 
 const TrustedByTeams = () => {
-  const [ref, Inview] = useInView({ threshold: 0.5, triggerOnce: true });
+  const [ref, Inview] = useInView({ threshold: 0.3, triggerOnce: true });
 
   return (
     <motion.section

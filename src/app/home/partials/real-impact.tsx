@@ -11,7 +11,7 @@ import { CounterProps } from '@/interfaces/counter-props';
 const Counter: React.FC<CounterProps> = ({ from, to, duration, suffix }) => {
   const [currentValue, setCurrentValue] = useState(from);
   const controls = useAnimation();
-  const [ref, Inview] = useInView({ threshold: 0.5, triggerOnce: true });
+  const [ref, Inview] = useInView({ threshold: 0.1, triggerOnce: true });
 
   useEffect(() => {
     if (Inview) {
@@ -73,7 +73,7 @@ const itemVariants = {
 };
 
 const RealImpactSection = () => {
-  const [ref, inview] = useInView({ threshold: 0.5, triggerOnce: true });
+  const [ref, inview] = useInView({ threshold: 0.3, triggerOnce: true });
 
   return (
     <motion.section

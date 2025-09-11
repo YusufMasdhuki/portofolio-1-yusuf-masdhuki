@@ -2,21 +2,15 @@
 import { motion } from 'motion/react';
 import Image from 'next/image';
 import Link from 'next/link';
-import React from 'react';
 import { useInView } from 'react-intersection-observer';
 
 import { Button } from '@/components/ui/button';
 
 import { experiencedData } from '@/constants/experienced-data';
-import {
-  fadeInUp,
-  scaleUp,
-  slideInLeft,
-  slideInRight,
-} from '@/lib/motion-variants';
+import { fadeInUp, slideInLeft, slideInRight } from '@/lib/motion-variants';
 
 const ExperiencedSection = () => {
-  const [ref, inView] = useInView({ threshold: 0.5, triggerOnce: true });
+  const [ref, inView] = useInView({ threshold: 0.3, triggerOnce: true });
 
   return (
     <motion.section
@@ -79,8 +73,7 @@ const ExperiencedList = () => {
   return (
     <div className='grid h-full grid-cols-2 gap-4 md:grid-cols-3'>
       {experiencedData.map((item, index) => (
-        <motion.div
-          variants={scaleUp}
+        <div
           key={index}
           className='flex aspect-square h-full w-full flex-col items-center justify-center rounded-2xl border border-neutral-900 lg:gap-2'
         >
@@ -94,7 +87,7 @@ const ExperiencedList = () => {
           <p className='text-md text-neutral-25 font-medium lg:text-lg'>
             {item.label}
           </p>
-        </motion.div>
+        </div>
       ))}
     </div>
   );

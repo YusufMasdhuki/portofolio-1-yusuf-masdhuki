@@ -17,7 +17,7 @@ import { fadeInUp, slideInLeft, slideInRight } from '@/lib/motion-variants';
 import { ContactSchema, contactSchema } from '@/schemas/contact-schema';
 
 const ContactUsSection = () => {
-  const [ref, inView] = useInView({ threshold: 0.5, triggerOnce: true });
+  const [ref, inView] = useInView({ threshold: 0, triggerOnce: true });
 
   const [successOpen, setSuccessOpen] = useState(false);
   const [errorOpen, setErrorOpen] = useState(false);
